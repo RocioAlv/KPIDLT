@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KPI - Distribuidora de la Torre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-weight: bold;
+        }
+        h2 {
+            font-family: 'Lato', sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: rgb(224, 255, 255);
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(200, 255, 255);
+        }
+        #kpiSection {
+            display: none;
+            margin-top: 20px;
+        }
+        #kpiList {
+            text-align: left;
+            display: inline-block;
+            background-color: rgb(224, 255, 255);
+            border: 2px solid rgb(175, 238, 238);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px; /* Ajustado para no ser tan grande */
+            height: auto; /* Se ajusta al contenido, no fijo */
+            font-size: 16px; /* Más grande para cubrir el recuadro */
+        }
+        #kpiList ul {
+            list-style-type: disc; /* Viñetas • */
+            padding-left: 20px;
+        }
+        #kpiList li {
+            margin: 10px 0;
+        }
+        .valor {
+            font-size: 16px; /* Resultados más grandes */
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hola! Coloca tu Dni para saber tus indicadores.</h1>
+    <input type="number" id="dniInput" placeholder="Ingresa tu DNI (solo números)">
+    <button onclick="consultarPerformance()">Consultar</button>
+    <div id="kpiSection">
+        <h2>KPI, DISTRIBUIDORA DE LA TORRE</h2>
+        <div id="kpiList">
+            <!-- KPIs aquí -->
+        </div>
+    </div>
+
+    <script>
+        const datosUsuarios = {
+            "111111": {
+                nombre: "Riquelme Juan",
+                rechazos: "5%",
+                tlp: "90%",
+                ocupacionBodega: "75%",
+                rmd: "85%",
+                adherenciaFichaje: "95%",
+                adherenciaCheck: "92%"
+            },
+            "22222": {
+                nombre: "Ludueña Gaston",
+                rechazos: "3%",
+                tlp: "88%",
+                ocupacionBodega: "80%",
+                rmd: "90%",
+                adherenciaFichaje: "97%",
+                adherenciaCheck: "94%"
+            },
+            "33333": {
+                nombre: "Acosta Gaston",
+                rechazos: "7%",
+                tlp: "85%",
+                ocupacionBodega: "70%",
+                rmd: "82%",
+                adherenciaFichaje: "93%",
+                adherenciaCheck: "89%"
+            },
+            "444444": {
+                nombre: "Verdera David",
+                rechazos: "4%",
+                tlp: "92%",
+                ocupacionBodega: "78%",
+                rmd: "87%",
+                adherenciaFichaje: "96%",
+                adherenciaCheck: "91%"
+            }
+        };
+
+        function consultarPerformance() {
+            const dni = document.getElementById('dniInput').value.trim();
+            const kpiSection = document.getElementById('kpiSection');
+            const kpiList = document.getElementById('kpiList');
+            
+            if (!dni) {
+                alert("Ingresa un DNI válido.");
+                kpiSection.style.display = 'none';
+                return;
+            }
+            
+            const usuario = datosUsuarios[dni];
+            if (usuario) {
+                kpiList.innerHTML = `
+                    <ul>
+                        <li><strong>Colaborador:</strong> <span class="valor">${usuario.nombre}</span></li>
+                        <li><strong>Rechazos:</strong> <span class="valor">${usuario.rechazos}</span></li>
+                        <li><strong>Tlp:</strong> <span class="valor">${usuario.tlp}</span></li>
+                        <li><strong>Ocupacion de bodega:</strong> <span class="valor">${usuario.ocupacionBodega}</span></li>
+                        <li><strong>RMD:</strong> <span class="valor">${usuario.rmd}</span></li>
+                        <li><strong>Adherencia al fichaje:</strong> <span class="valor">${usuario.adherenciaFichaje}</span></li>
+                        <li><strong>Adherencia al check:</strong> <span class="valor">${usuario.adherenciaCheck}</span></li>
+                    </ul>
+                `;
+                kpiSection.style.display = 'block';
+            } else {
+                alert("DNI no encontrado. Contacta a tu supervisor.");
+                kpiSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
