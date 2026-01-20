@@ -2,82 +2,106 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
+    <!-- 🔑 CLAVE PARA CELULAR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>KPI - Distribuidora de la Torre</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
             background-color: #f9f9f9;
             color: #333;
-            margin: 20px;
+            margin: 0;
+            padding: 20px;
             text-align: center;
         }
+
         h1 {
-            font-weight: bold;
+            font-size: clamp(18px, 5vw, 26px);
+            margin-bottom: 20px;
         }
+
         h2 {
             font-family: 'Lato', sans-serif;
-            font-size: 17px;
+            font-size: clamp(16px, 4.5vw, 20px);
             font-weight: bold;
+            margin-bottom: 15px;
         }
+
         input {
-            padding: 10px;
-            font-size: 14px;
+            padding: 12px;
+            font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 200px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 15px;
         }
+
         button {
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 12px;
+            font-size: 16px;
             background-color: rgb(224, 255, 255);
             color: #333;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            width: 100%;
+            max-width: 320px;
         }
+
         button:hover {
             background-color: rgb(200, 255, 255);
         }
+
         #kpiSection {
             display: none;
-            margin-top: 20px;
+            margin-top: 25px;
         }
+
         #kpiList {
             text-align: left;
-            display: inline-block;
             background-color: rgb(224, 255, 255);
             border: 2px solid rgb(175, 238, 238);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 300px; /* Ajustado para no ser tan grande */
-            height: auto; /* Se ajusta al contenido, no fijo */
-            font-size: 16px; /* Más grande para cubrir el recuadro */
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            font-size: clamp(15px, 4vw, 17px);
         }
+
         #kpiList ul {
-            list-style-type: disc; /* Viñetas • */
+            list-style-type: disc;
             padding-left: 20px;
+            margin: 0;
         }
+
         #kpiList li {
-            margin: 10px 0;
+            margin: 12px 0;
+            line-height: 1.4;
         }
+
         .valor {
-            font-size: 16px; /* Resultados más grandes */
             font-weight: normal;
         }
     </style>
 </head>
+
 <body>
-    <h1>Hola! Coloca tu Dni para saber tus indicadores.</h1>
-    <input type="number" id="dniInput" placeholder="Ingresa tu DNI (solo números)">
+
+    <h1>Hola! Colocá tu DNI para ver tus indicadores</h1>
+
+    <input type="number" id="dniInput" placeholder="Ingresa tu DNI">
     <button onclick="consultarPerformance()">Consultar</button>
+
     <div id="kpiSection">
-        <h2>KPI, DISTRIBUIDORA DE LA TORRE</h2>
-        <div id="kpiList">
-            <!-- KPIs aquí -->
-        </div>
+        <h2>KPI · Distribuidora de la Torre</h2>
+        <div id="kpiList"></div>
     </div>
 
     <script>
@@ -124,24 +148,25 @@
             const dni = document.getElementById('dniInput').value.trim();
             const kpiSection = document.getElementById('kpiSection');
             const kpiList = document.getElementById('kpiList');
-            
+
             if (!dni) {
                 alert("Ingresa un DNI válido.");
                 kpiSection.style.display = 'none';
                 return;
             }
-            
+
             const usuario = datosUsuarios[dni];
+
             if (usuario) {
                 kpiList.innerHTML = `
                     <ul>
-                        <li><strong>Colaborador:</strong> <span class="valor">${usuario.nombre}</span></li>
-                        <li><strong>Rechazos:</strong> <span class="valor">${usuario.rechazos}</span></li>
-                        <li><strong>Tlp:</strong> <span class="valor">${usuario.tlp}</span></li>
-                        <li><strong>Ocupacion de bodega:</strong> <span class="valor">${usuario.ocupacionBodega}</span></li>
-                        <li><strong>RMD:</strong> <span class="valor">${usuario.rmd}</span></li>
-                        <li><strong>Adherencia al fichaje:</strong> <span class="valor">${usuario.adherenciaFichaje}</span></li>
-                        <li><strong>Adherencia al check:</strong> <span class="valor">${usuario.adherenciaCheck}</span></li>
+                        <li><strong>Colaborador:</strong> ${usuario.nombre}</li>
+                        <li><strong>Rechazos:</strong> ${usuario.rechazos}</li>
+                        <li><strong>TLP:</strong> ${usuario.tlp}</li>
+                        <li><strong>Ocupación de bodega:</strong> ${usuario.ocupacionBodega}</li>
+                        <li><strong>RMD:</strong> ${usuario.rmd}</li>
+                        <li><strong>Adherencia al fichaje:</strong> ${usuario.adherenciaFichaje}</li>
+                        <li><strong>Adherencia al check:</strong> ${usuario.adherenciaCheck}</li>
                     </ul>
                 `;
                 kpiSection.style.display = 'block';
@@ -151,6 +176,6 @@
             }
         }
     </script>
-</body>
 
+</body>
 </html>
