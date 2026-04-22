@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-
-    <!-- 🔑 CLAVE PARA CELULAR -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>KPI - Distribuidora de la Torre</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -85,106 +83,93 @@
             margin: 12px 0;
             line-height: 1.4;
         }
-
-        .valor {
-            font-weight: normal;
-        }
     </style>
 </head>
 
 <body>
 
-    <h1>Hola! Colocá tu DNI para ver tus indicadores del día de ayer</h1>
+<h1>Hola! Colocá tu DNI para ver tus indicadores del día de ayer</h1>
 
-    <input type="number" id="dniInput" placeholder="Ingresa tu DNI">
-    <button onclick="consultarPerformance()">Consultar</button>
+<input type="number" id="dniInput" placeholder="Ingresa tu DNI">
+<button onclick="consultarPerformance()">Consultar</button>
 
-    <div id="kpiSection">
-        <h2>KPI · Distribuidora de la Torre</h2>
-        <div id="kpiList"></div>
-    </div>
+<div id="kpiSection">
+    <h2>KPI · Distribuidora de la Torre</h2>
+    <div id="kpiList"></div>
+</div>
 
-    <script>
-        const datosUsuarios = {
-            "22545046": {
-                nombre: "Riquelme Juan",
-                RechazosLogísticos: "0",
-                Tlp: "12.29",
-                OcupacionBodega: "240Bultos",
-                Rmd: "NoHayDetractores",
-                AdherenciaSecuencia:"72%",
-                AdherenciaCheckFlota: "100%",
-                FichajeDeAyer: "Completo",
-                HsEnRuta: "06:51",
-                
-            },
-            "32606350": {
-               nombre: "Ludueña Gastón",
-                RechazosLogísticos: "0 Rechazos",
-                Tlp: "25.58",
-                OcupacionBodega: "274Bultos",
-                RMD: "NoHayDetractores",
-                AdherenciaSecuencia:"46%",
-                AdherenciaCheckFlota: "92%",
-                FichajeDeAyer: "Completo",
-                HsEnRuta: "03:57",
-            },
-            "29662159": {
-                nombre: "Acosta Gaston",
-                rechazos: "0",
-                tlp: "23.29",
-                ocupacionBodega: "293Bultos",
-                AdherenciaSecuencia:"72%",
-                RMD: "NoHayDetractores",
-                AdherenciaCheckFlota: "92%",
-                FichajeDeAyer: "Completo",
-                HsEnRuta: "06:29",
-            },
-            "31383352": {
-                nombre: "Verdera David",
-                rechazos: "0",
-                tlp: "19.32",
-                ocupacionBodega: "199Bultos",
-                rmd: "NoHayDetractores",
-                AdherenciaSecuencia:"74%",
-                AdherenciaCheckFlota: "79%",
-                FichajeDeAyer: "Completo",
-                HsEnRuta: "05:15",
-            }
-        };
+<script>
+const datosUsuarios = {
+    "22545046": {
+        nombre: "Riquelme Juan",
+        rechazos: "0",
+        tlp: "12.29",
+        ocupacionBodega: "240 Bultos",
+        rmd: "No hay detractores",
+        adherenciaFichaje: "Completo",
+        adherenciaCheck: "100%"
+    },
+    "32606350": {
+        nombre: "Ludueña Gastón",
+        rechazos: "0",
+        tlp: "25.58",
+        ocupacionBodega: "274 Bultos",
+        rmd: "No hay detractores",
+        adherenciaFichaje: "Completo",
+        adherenciaCheck: "92%"
+    },
+    "29662159": {
+        nombre: "Acosta Gaston",
+        rechazos: "0",
+        tlp: "23.29",
+        ocupacionBodega: "293 Bultos",
+        rmd: "No hay detractores",
+        adherenciaFichaje: "Completo",
+        adherenciaCheck: "92%"
+    },
+    "31383352": {
+        nombre: "Verdera David",
+        rechazos: "0",
+        tlp: "19.32",
+        ocupacionBodega: "199 Bultos",
+        rmd: "No hay detractores",
+        adherenciaFichaje: "Completo",
+        adherenciaCheck: "79%"
+    }
+};
 
-        function consultarPerformance() {
-            const dni = document.getElementById('dniInput').value.trim();
-            const kpiSection = document.getElementById('kpiSection');
-            const kpiList = document.getElementById('kpiList');
+function consultarPerformance() {
+    const dni = document.getElementById('dniInput').value.trim();
+    const kpiSection = document.getElementById('kpiSection');
+    const kpiList = document.getElementById('kpiList');
 
-            if (!dni) {
-                alert("Ingresa un DNI válido.");
-                kpiSection.style.display = 'none';
-                return;
-            }
+    if (!dni) {
+        alert("Ingresa un DNI válido.");
+        kpiSection.style.display = 'none';
+        return;
+    }
 
-            const usuario = datosUsuarios[dni];
+    const usuario = datosUsuarios[dni];
 
-            if (usuario) {
-                kpiList.innerHTML = `
-                    <ul>
-                        <li><strong>Colaborador:</strong> ${usuario.nombre}</li>
-                        <li><strong>Rechazos:</strong> ${usuario.rechazos}</li>
-                        <li><strong>TLP:</strong> ${usuario.tlp}</li>
-                        <li><strong>Ocupación de bodega:</strong> ${usuario.ocupacionBodega}</li>
-                        <li><strong>RMD:</strong> ${usuario.rmd}</li>
-                        <li><strong>Adherencia al fichaje:</strong> ${usuario.adherenciaFichaje}</li>
-                        <li><strong>Adherencia al check:</strong> ${usuario.adherenciaCheck}</li>
-                    </ul>
-                `;
-                kpiSection.style.display = 'block';
-            } else {
-                alert("DNI no encontrado. Contacta a tu supervisor.");
-                kpiSection.style.display = 'none';
-            }
-        }
-    </script>
+    if (usuario) {
+        kpiList.innerHTML = `
+            <ul>
+                <li><strong>Colaborador:</strong> ${usuario.nombre}</li>
+                <li><strong>Rechazos:</strong> ${usuario.rechazos}</li>
+                <li><strong>TLP:</strong> ${usuario.tlp}</li>
+                <li><strong>Ocupación de bodega:</strong> ${usuario.ocupacionBodega}</li>
+                <li><strong>RMD:</strong> ${usuario.rmd}</li>
+                <li><strong>Adherencia al fichaje:</strong> ${usuario.adherenciaFichaje}</li>
+                <li><strong>Adherencia al check:</strong> ${usuario.adherenciaCheck}</li>
+            </ul>
+        `;
+        kpiSection.style.display = 'block';
+    } else {
+        alert("DNI no encontrado. Contacta a tu supervisor.");
+        kpiSection.style.display = 'none';
+    }
+}
+</script>
 
 </body>
 </html>
